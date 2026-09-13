@@ -3,7 +3,7 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "test"
+name = "python_template"
 dynamic = ["version"]
 description = ""
 readme = "README.md"
