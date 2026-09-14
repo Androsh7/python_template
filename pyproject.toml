@@ -13,8 +13,8 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = [
+    "build",
     "pytest",
-    "nuitka",
     "ruff",
 ]
 
