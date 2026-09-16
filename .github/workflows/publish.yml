@@ -1,9 +1,24 @@
+# Build the package at a given ref and publish it to PyPI via trusted publishing.
+#
+# This workflow has no trigger of its own. It is called by tag.yml once a new
+# release tag has been created, and can be run manually to re-publish a tag
+# whose earlier attempt failed.
+
 name: Publish to PyPI
 
 on:
-  push:
-    tags:
-      - "v*"
+  workflow_call:
+    inputs:
+      ref:
+        description: Tag (or other ref) to build and publish
+        type: string
+        required: true
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Tag (or other ref) to build and publish, e.g. v1.4.2
+        type: string
+        required: true
 
 permissions:
   contents: read
@@ -14,6 +29,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
       - name: Set up Python 3.10
         uses: actions/setup-python@v5
         with:
