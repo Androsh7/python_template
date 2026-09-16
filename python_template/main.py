@@ -8,9 +8,10 @@ from python_template.constants import VERSION
 
 
 def main():
+    """Main function"""
     parser = ArgumentParser()
     parser.add_argument("--version", action="version", version=f"v{VERSION}")
-    args = parser.parse_args()
+    parser.parse_args()
 
 
 if __name__ == "__main__":
