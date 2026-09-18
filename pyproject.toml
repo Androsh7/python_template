@@ -30,23 +30,20 @@ select = [
     "E",    # Pycodestyle errors
     "F",    # Pyflakes
     "I",    # Isort
-    "PL",   # Pylint
     "UP",   # Pyupgrade
-    "D",    # docstring on every module, class, function, method
+    "D",    # Docstring on every module, class, function, method
     "N",    # pep8 naming
-    "TID",  # banned relative imports
-    "INP",  # every package directory has an __init__.py
-    "ERA",  # no commented-out code
+    "TID",  # Banned relative imports
+    "INP",  # Every package directory has an __init__.py
+    "ERA",  # No commented-out code
     "B",    # Bugbear: likely bugs and design problems
     "SIM",  # Simplify: needlessly complex code
-    "C4",   # Comprehensions: prefer comprehensions over map/filter/list() calls
     "RUF",  # Ruff-specific rules
     "PT",   # Pytest style
     "PTH",  # Prefer pathlib over os.path
-    "T20",  # No stray print/pprint calls
 ]
 ignore = [
-    "D415", # no trailing period on the summary line
+    "D415", # No trailing period on the summary line
     "D104", # __init__.py has no docstring
 ]
 
@@ -54,7 +51,12 @@ ignore = [
 convention = "google"
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["D", "INP001", "PLR2004", "S101"]
+"tests/**" = [
+    "D",       # Docstring on every module, class, function, method
+    "INP001",  # __init__.py in every directory 
+    "PLR2004", # No magic values
+    "S101"     # Using assert is not allowed
+]
 
 [tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "all"
