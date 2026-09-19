@@ -1,6 +1,7 @@
 # On every push to main (i.e. a merged PR), read VERSION.txt and, if a tag
 # for that version doesn't already exist, create an annotated tag and a
 # GitHub Release whose notes are pulled from the matching CHANGELOG.md section.
+# publish.yml runs on the same push and publishes the package to PyPI.
 #
 # Assumptions:
 #   - VERSION.txt contains a bare semver string, e.g. "1.4.2"
@@ -28,9 +29,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TAG_PREFIX: v
-    outputs:
-      tag: ${{ steps.version.outputs.tag }}
-      created: ${{ steps.check.outputs.exists == 'false' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -100,13 +98,3 @@ jobs:
           name: ${{ steps.version.outputs.tag }}
           body: ${{ steps.notes.outputs.body }}
           prerelease: ${{ contains(steps.version.outputs.version, '-') }}
-
-  publish:
-    needs: tag
-    if: needs.tag.outputs.created == 'true'
-    permissions:
-      contents: read
-      id-token: write
-    uses: ./.github/workflows/publish.yml
-    with:
-      ref: ${{ needs.tag.outputs.tag }}
